@@ -1,10 +1,14 @@
 <template>
-  <div id="app">
+  <div id="app" style="height: 100%;">
     <div id="nav">
       <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+      <router-link to="/about">About</router-link> |
+      <router-link to="/videoPlayer">video-player</router-link> |
+      <router-link to="/viewDoc">viewDoc</router-link>
     </div>
-    <router-view/>
+    <div style="height:calc(100% - 78px);">
+      <router-view style="height:100%;"/>
+    </div>
   </div>
 </template>
 

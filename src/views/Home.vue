@@ -1,18 +1,23 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <img alt="Vue logo" src="../assets/logo.png" @click="videoDialogVisible = true">
+    <el-dialog title="播放视频" :visible.sync="videoDialogVisible">
+      <video-player-component></video-player-component>
+    </el-dialog>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
-
+import videoPlayerComponent from './videoPlayer'
 export default {
   name: 'Home',
   components: {
-    HelloWorld
+    videoPlayerComponent
+  },
+  data () {
+    return {
+      videoDialogVisible: false
+    }
   }
 }
 </script>
