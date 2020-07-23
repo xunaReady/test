@@ -10,8 +10,16 @@
 </template>
 
 <script>
+// 第一个是videoJs的样式，后一个是vue-video-player的样式
+import 'video.js/dist/video-js.css'
+import 'vue-video-player/src/custom-theme.css'
+// 这里写法要注意
+import { videoPlayer } from 'vue-video-player'
 export default {
   name: 'Video',
+  components: {
+    videoPlayer
+  },
   data () {
     return {
       playerOptions: {
@@ -25,7 +33,7 @@ export default {
         fluid: true, // 当true时，Video.js player将拥有流体大小。换句话说，它将按比例缩放以适应其容器。
         sources: [{
           type: 'video/mp4',
-          src: 'https://dl.caishui.aisino.com/axh/static/help/video/helpvideo.mp4' // 你的视频地址（必填）
+          src: require('../../assets/video/wangyibo.mp4') // 你的视频地址（必填）
         }],
         poster: 'poster.jpg', // 你的封面地址
         width: document.documentElement.clientWidth,

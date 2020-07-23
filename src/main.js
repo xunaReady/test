@@ -7,13 +7,12 @@ import moment from 'moment'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 
-// 第一个是videoJs的样式，后一个是vue-video-player的样式
-import 'video.js/dist/video-js.css'
-import 'vue-video-player/src/custom-theme.css'
+// 阿里巴巴矢量图标库
+import '@/assets/icons'
+// 全局组件
+import '@/components'
 
-import VideoPlayer from 'vue-video-player'
-
-// 预览组件
+// 预览图片组件
 import 'viewerjs/dist/viewer.css'
 import Viewer from 'v-viewer'
 Vue.use(Viewer)
@@ -35,8 +34,6 @@ Viewer.setDefaults({
     url: 'data-source' // 设置大图片的URL
   }
 })
-
-Vue.use(VideoPlayer)
 
 Vue.use(ElementUI)
 
