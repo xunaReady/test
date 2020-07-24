@@ -22,32 +22,34 @@ const routes = [
   {
     path: '/index',
     name: 'Index',
-    component: Index
-  },
-  {
-    path: '/home',
-    name: 'Home',
-    component: Home
-  },
-  {
-    path: '/about',
-    name: 'About',
-    component: About
-  },
-  {
-    path: '/videoPlayer',
-    name: 'Video',
-    component: Video
-  },
-  {
-    path: '/viewDoc',
-    name: 'Doc',
-    component: Doc
-  },
-  {
-    path: '/viewPicture',
-    name: 'Picture',
-    component: Picture
+    component: Index,
+    children: [
+      {
+        path: '/home',
+        name: 'Home',
+        component: Home
+      },
+      {
+        path: '/about',
+        name: 'About',
+        component: About
+      },
+      {
+        path: '/videoPlayer',
+        name: 'Video',
+        component: Video
+      },
+      {
+        path: '/viewDoc',
+        name: 'Doc',
+        component: Doc
+      },
+      {
+        path: '/viewPicture',
+        name: 'Picture',
+        component: Picture
+      }
+    ]
   }
 ]
 
