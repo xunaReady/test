@@ -39,13 +39,13 @@ router.post('/addUser', (req, res) => {
 
 // 查找用户接口
 router.post('/login', (req, res) => {
-  var sql_name = $sql.user.select_name
+  var sqlName = $sql.user.select_name
   var params = req.body
   console.log(params)
   if (params.name) {
-    sql_name += "where username = '" + params.name + "'"
+    sqlName += "where username = '" + params.name + "'"
   }
-  conn.query(sql_name, params.name, function (err, result) {
+  conn.query(sqlName, params.name, function (err, result) {
     if (err) {
       console.log(err)
     }
@@ -65,13 +65,13 @@ router.post('/login', (req, res) => {
 
 // 获取用户信息
 router.get('/getUser', (req, res) => {
-  var sql_name = $sql.user.select_name
+  var sqlName = $sql.user.select_name
   var params = req.body
   console.log(params)
   if (params.name) {
-    sql_name += "where username = '" + params.name + "'"
+    sqlName += "where username = '" + params.name + "'"
   }
-  conn.query(sql_name, params.name, function (err, result) {
+  conn.query(sqlName, params.name, function (err, result) {
     if (err) {
       console.log(err)
     }
@@ -85,18 +85,18 @@ router.get('/getUser', (req, res) => {
 
 // 更新用户信息
 router.post('/updateUser', (req, res) => {
-  var sql_update = $sql.user.update_user
+  var sqlUpdate = $sql.user.update_user
   var params = req.body
   console.log(params)
   if (params.id) {
-    sql_update += "email = '" + params.email +
+    sqlUpdate += "email = '" + params.email +
                         "',phone = '" + params.phone +
                         "',card = '" + params.card +
                         "',birth = '" + params.birth +
                         "',sex = '" + params.sex +
                         "' where id = '" + params.id + "'"
   }
-  conn.query(sql_update, params.id, function (err, result) {
+  conn.query(sqlUpdate, params.id, function (err, result) {
     if (err) {
       console.log(err)
     }
@@ -111,15 +111,15 @@ router.post('/updateUser', (req, res) => {
 
 // 更改密码
 router.post('/modifyPassword', (req, res) => {
-  var sql_modify = $sql.user.update_user
+  var sqlModify = $sql.user.update_user
   var params = req.body
   console.log(params)
   if (params.id) {
-    sql_modify += " password = '" + params.pass +
+    sqlModify += " password = '" + params.pass +
                         "',repeatPass = '" + params.checkPass +
                         "' where id = " + params.id + "'"
   }
-  conn.query(sql_modify, params.id, function (err, result) {
+  conn.query(sqlModify, params.id, function (err, result) {
     if (err) {
       console.log(err)
     }

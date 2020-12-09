@@ -1,37 +1,110 @@
 <template>
-  <el-container id="app" style="height: 100%;">
+  <el-container id="app">
     <el-aside id="nav">
-      <router-link to="/Home">Home</router-link> |
-      <router-link to="/about">About</router-link> |
-      <router-link to="/videoPlayer">video-player</router-link> |
-      <router-link to="/viewDoc">viewDoc</router-link> |
-      <router-link to="/viewPicture">viewPicture(王一博图片集)</router-link>
+      <div class="logo flex-row-center">
+        <img :src="require('@/assets/images/1.jpg')"/>
+      </div>
+      <el-menu ref="menuSign"
+        class="main-menu-class"
+        background-color='#214077'
+        active-text-color="#ffffff"
+        text-color="#999999"
+        :default-active="activeMenu"
+        :unique-opened="false"
+        router>
+        <menu-item-component :menuOptions="menuOptions"></menu-item-component>
+      </el-menu>
     </el-aside>
     <el-container>
-      <el-header></el-header>
+      <el-header class="main-header">
+       <div>练习demo</div>
+     </el-header>
       <el-main style="height:calc(100% - 60px);padding:0;overflow:hidden;">
-        <div style="height:100%;overflow-y:auto;">
+        <div style="height:100%;overflow-y:auto;" class="main-wrapper">
           <router-view style="height:100%;"/>
         </div>
       </el-main>
     </el-container>
   </el-container>
 </template>
+<script>
+import { menuConfig } from '@/router/menuConfig'
+import MenuItemComponent from '@/components/menuItem.vue'
+export default {
+  name: 'index',
+  components: {
+    MenuItemComponent
+  },
+  watch: {
+    '$route.matched': {
+      handler (val) {
+        this.activeMenu = val[val.length - 1].path
+        this.$nextTick(() => {
+          if (this.menuOptions.length > 0 && this.$refs.menuSign) {
+            this.$refs.menuSign.activeIndex = this.activeMenu
+          }
+        })
+      },
+      immediate: true
+    }
+  },
+  data () {
+    return {
+      menuOptions: menuConfig,
+      activeMenu: ''
+    }
+  },
+  methods: {
+  }
+}
+</script>
 <style lang="scss" scoped>
 #app {
-  text-align: center;
-  color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
+  height: 100%;
+  overflow: hidden;
+  #nav {
+    background-color: #214077;
+    width: 200px !important;
+    padding: 0px;
+    .logo {
+      padding: 20px 20px 10px;
+      img {
+        border-radius: 50%;
+        width: 120px;
+        height: 120px;
+      }
+    }
+    .main-menu-class{
+      height:calc( 100% - 180px);
+      overflow-y: auto;
+      padding: 10px 0 20px;
+      border:none;
+    }
+  }
+  .main-header{
+    background-color: #ffffff;
+    box-shadow: 5px 9px 32px 2px rgba(23, 63, 224, 0.08);
+    height: 60px !important;
+    line-height: 60px !important;
+  }
+  .main-wrapper{
+    &::-webkit-scrollbar {
+      width: 8px;
+      /*滚动条宽度*/
+      height: 8px;
+      /*滚动条高度*/
+    }
+    &::-webkit-scrollbar-track {
+      border-radius: 10px;
+      /*滚动条的背景区域的圆角*/
+      background-color: #e3e3e3;
+      /*滚动条的背景颜色*/
+    }
+    &::-webkit-scrollbar-thumb {
+      border-radius: 10px;
+      /*滚动条的圆角*/
+      background-color: #ccc;
+      /*滚动条的背景颜色*/
     }
   }
 }
