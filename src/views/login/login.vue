@@ -4,8 +4,8 @@
             <p class="login-title">登 录 管 理 系 统</p>
             <div class="login-form">
                 <el-form :model="form" :rules="rules" ref="login">
-                    <el-form-item prop="name">
-                        <el-input v-model.trim="form.name">
+                    <el-form-item prop="username">
+                        <el-input v-model.trim="form.username">
                             <template slot="prepend"
                                 class="prefix">用户名
                             </template>
@@ -33,7 +33,7 @@
     </div>
 </template>
 <script>
-import $http from '@/axios/axios.js'
+import { loginApi } from '@/assets/api/user.js'
 import util from '@/libs/util.js'
 export default {
   name: 'login',
@@ -41,11 +41,11 @@ export default {
     return {
       passwordStatus: 'password',
       form: {
-        name: '',
+        username: '',
         password: ''
       },
       rules: {
-        name: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
+        username: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
         password: [{ required: true, message: '请输入密码', trigger: 'blur' }]
       }
     }
@@ -54,7 +54,7 @@ export default {
     login () {
       this.$refs.login.validate(valid => {
         if (valid) {
-          $http.post('/api/user/login', JSON.stringify(this.form)).then(async res => {
+          loginApi(this.form).then(async res => {
             console.log(res)
             if (res.code === 1) {
               await util.cookies.set('token', res.result.token)

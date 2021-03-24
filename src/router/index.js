@@ -19,6 +19,10 @@ Vue.use(VueRouter)
 
 const routes = [
   {
+    path: '/',
+    redirect: '/login'
+  },
+  {
     path: '/login',
     name: 'Login',
     component: Login
@@ -85,7 +89,7 @@ const whiteList = ['/login']
 const router = new VueRouter({
   routes
 })
-router.beforeEach(async (to, from, next) => {
+router.beforeEach(async(to, from, next) => {
   if (to.matched.length === 0 || to.matched.some(r => r.meta.requiresAuth)) {
     const token = util.cookies.get('token')
     if (token) {
@@ -115,7 +119,7 @@ router.beforeEach(async (to, from, next) => {
         next()
       } else {
         // 没有登录的时候跳转到登录界面
-        next({ name: 'login' })
+        next({ path: '/login' })
       }
     }
   } else {

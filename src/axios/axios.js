@@ -4,7 +4,7 @@ import { MessageBox } from 'element-ui'
 import router from '../router'
 
 const service = axios.create({
-  baseURL: 'http://127.0.0.1:3000',
+  baseURL: 'http://localhost:3000',
   withCredentials: true,
   timeout: 30000
 })
@@ -30,7 +30,7 @@ service.interceptors.response.use(
   },
   error => {
     console.log(error)
-    if (error.response.status === 401) {
+    if (error && error.response && error.response.status === 401) {
       MessageBox('请先登录账号', '提示', {
         comfirmButtonText: '确定',
         type: 'warning'

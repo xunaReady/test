@@ -1,3 +1,5 @@
 <template>
-    <div>角色管理</div>
+    <div id="role">
+        <div class="title">角色管理</div>
+    </div>
 </template>

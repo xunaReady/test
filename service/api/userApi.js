@@ -32,13 +32,13 @@ router.post('/addUser', (req, res) => {
   })
 })
 
-// 查找用户接口
+// 登录接口
 router.post('/login', (req, res) => {
   var sqlName = $sql.user.select_name
   var params = req.body
-  console.log('77777', params, params.name)
-  if (params.name) {
-    sqlName += " where username = '" + params.name + "'"
+  console.log('77777', params)
+  if (params.username) {
+    sqlName += " where username = '" + params.username + "'"
   }
   conn.query(sqlName, function (err, result) {
     if (err) {
@@ -72,10 +72,10 @@ router.post('/login', (req, res) => {
 // 获取用户信息
 router.get('/getUser', (req, res) => {
   var sqlName = $sql.user.select_name
-  var params = req.body
-  console.log(params)
-  if (params.name) {
-    sqlName += " where username = '" + params.name + "'"
+  var params = req.query
+  console.log('用户参数', params)
+  if (params.username) {
+    sqlName += " where username = '" + params.username + "'"
   }
   conn.query(sqlName, function (err, result) {
     if (err) {

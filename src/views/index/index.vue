@@ -21,7 +21,7 @@
      </el-header>
       <el-main style="height:calc(100% - 60px);padding:0;overflow:hidden;">
         <div style="height:100%;overflow-y:auto;" class="main-wrapper">
-          <router-view style="height:100%;"/>
+          <router-view style="height: calc(100% - 40px);padding:20px;"/>
         </div>
       </el-main>
     </el-container>

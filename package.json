@@ -25,6 +25,7 @@
     "lowdb": "^1.0.0",
     "moment": "^2.26.0",
     "mysql": "^2.18.1",
+    "nodemon": "^2.0.7",
     "qrcodejs2": "0.0.2",
     "svg-sprite-loader": "^5.0.0",
     "v-viewer": "^1.5.1",

@@ -1,0 +1,25 @@
+.tc{
+    text-align: center;
+}
+.tr{
+    text-align: right;
+}
+.tl{
+    text-align: left;
+}
+.title{
+    margin-bottom: 10px;
+    &::before {
+      content: ' ';
+      background-color: #214077;
+      display: inline-block;
+      margin-right: 10px;
+      padding: 6px 4px;
+    }
+  }
+.flex-row-center{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}

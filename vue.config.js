@@ -23,8 +23,5 @@ module.exports = {
       .exclude
       .add(resolve('src/assets/icons/svg'))
       .end()
-  },
-  devServer: {
-    proxy: 'http://127.0.0.1:3000'
   }
 }
