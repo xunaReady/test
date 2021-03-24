@@ -35,27 +35,47 @@ const routes = [
       {
         path: '/home',
         name: 'Home',
-        component: Home
+        component: Home,
+        meta: {
+          title: '',
+          requiresAuth: true
+        }
       },
       {
         path: '/about',
         name: 'About',
-        component: About
+        component: About,
+        meta: {
+          title: '',
+          requiresAuth: true
+        }
       },
       {
         path: '/videoPlayer',
         name: 'Video',
-        component: Video
+        component: Video,
+        meta: {
+          title: '',
+          requiresAuth: true
+        }
       },
       {
         path: '/viewDoc',
         name: 'Doc',
-        component: Doc
+        component: Doc,
+        meta: {
+          title: '',
+          requiresAuth: true
+        }
       },
       {
         path: '/viewPicture',
         name: 'Picture',
-        component: Picture
+        component: Picture,
+        meta: {
+          title: '',
+          requiresAuth: true
+        }
       }
     ]
   },
@@ -67,17 +87,29 @@ const routes = [
       {
         path: '/user',
         name: 'User',
-        component: User
+        component: User,
+        meta: {
+          title: '用户管理',
+          requiresAuth: true
+        }
       },
       {
         path: '/role',
         name: 'Role',
-        component: Role
+        component: Role,
+        meta: {
+          title: '角色管理',
+          requiresAuth: true
+        }
       },
       {
         path: '/resource',
         name: 'Resource',
-        component: Resource
+        component: Resource,
+        meta: {
+          title: '资源管理',
+          requiresAuth: true
+        }
       }
     ]
   }

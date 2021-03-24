@@ -1,16 +1,16 @@
-var models = require('../db/db')
-var express = require('express')
-var router = express.Router()
-var mysql = require('mysql')
-var $sql = require('../db/sqlMap')
+const models = require('../db/db')
+const express = require('express')
+const router = express.Router()
+const mysql = require('mysql')
+const $sql = require('../db/sqlMap')
 const jwt = require('jsonwebtoken')
 
-var conn = mysql.createConnection(models.mysql)
+const conn = mysql.createConnection(models.mysql)
 conn.connect()
 
-var jsonWrite = function (res, ret) {
+const jsonWrite = function(res, ret) {
   if (typeof ret === 'undefined') {
-    res.send({ code: 0, msg: 'error' })
+    res.send({ code: -1, msg: 'error' })
   } else {
     console.log(ret)
     res.send(ret)
@@ -19,10 +19,10 @@ var jsonWrite = function (res, ret) {
 
 // 增加用户接口
 router.post('/addUser', (req, res) => {
-  var sql = $sql.user.add
-  var params = req.body
+  const sql = $sql.user.add
+  const params = req.body
   console.log(params, '88888', params.name, params.password)
-  conn.query(sql, [params.name, params.password], function (err, result) {
+  conn.query(sql, [params.name, params.password], function(err, result) {
     if (err) {
       console.log(err)
     }
@@ -34,20 +34,20 @@ router.post('/addUser', (req, res) => {
 
 // 登录接口
 router.post('/login', (req, res) => {
-  var sqlName = $sql.user.select_name
-  var params = req.body
+  let sqlName = $sql.user.select_name
+  const params = req.body
   console.log('77777', params)
   if (params.username) {
     sqlName += " where username = '" + params.username + "'"
   }
-  conn.query(sqlName, function (err, result) {
+  conn.query(sqlName, function(err, result) {
     if (err) {
       console.log(err)
     }
     if (result[0] === undefined) {
-      jsonWrite(res, { code: 0, msg: '用户名不存在' })
+      jsonWrite(res, { code: -1, msg: '用户名不存在' })
     } else {
-      var resultArray = result[0]
+      const resultArray = result[0]
       console.log(result[0])
       if (resultArray.password === params.password) {
         console.log(resultArray, resultArray.password)
@@ -63,7 +63,7 @@ router.post('/login', (req, res) => {
           result: { ...result, token }
         })
       } else {
-        jsonWrite(res, { code: 0, msg: '用户密码错误' })
+        jsonWrite(res, { code: -1, msg: '用户密码错误' })
       }
     }
   })
@@ -71,18 +71,18 @@ router.post('/login', (req, res) => {
 
 // 获取用户信息
 router.get('/getUser', (req, res) => {
-  var sqlName = $sql.user.select_name
-  var params = req.query
+  let sqlName = $sql.user.select_name
+  const params = req.query
   console.log('用户参数', params)
   if (params.username) {
     sqlName += " where username = '" + params.username + "'"
   }
-  conn.query(sqlName, function (err, result) {
+  conn.query(sqlName, function(err, result) {
     if (err) {
       console.log(err)
     }
     if (result[0] === undefined) {
-      jsonWrite(res, { code: 0, msg: 'error' })
+      jsonWrite(res, { code: -1, msg: 'error' })
     } else {
       jsonWrite(res, { code: 1, msg: 'success', result: result })
     }
@@ -91,8 +91,8 @@ router.get('/getUser', (req, res) => {
 
 // 更新用户信息
 router.post('/updateUser', (req, res) => {
-  var sqlUpdate = $sql.user.update_user
-  var params = req.body
+  let sqlUpdate = $sql.user.update_user
+  const params = req.body
   console.log(params)
   if (params.id) {
     sqlUpdate += "email = '" + params.email +
@@ -102,7 +102,7 @@ router.post('/updateUser', (req, res) => {
                         "',sex = '" + params.sex +
                         "' where id = '" + params.id + "'"
   }
-  conn.query(sqlUpdate, params.id, function (err, result) {
+  conn.query(sqlUpdate, params.id, function(err, result) {
     if (err) {
       console.log(err)
     }
@@ -117,15 +117,15 @@ router.post('/updateUser', (req, res) => {
 
 // 更改密码
 router.post('/modifyPassword', (req, res) => {
-  var sqlModify = $sql.user.update_user
-  var params = req.body
+  let sqlModify = $sql.user.update_user
+  const params = req.body
   console.log(params)
   if (params.id) {
     sqlModify += " password = '" + params.pass +
                         "',repeatPass = '" + params.checkPass +
                         "' where id = " + params.id + "'"
   }
-  conn.query(sqlModify, params.id, function (err, result) {
+  conn.query(sqlModify, params.id, function(err, result) {
     if (err) {
       console.log(err)
     }

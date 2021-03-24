@@ -61,7 +61,7 @@ export default {
   },
   created() {
     const token = Base64.decode(util.cookies.get('token'))
-    console.log((new Date()).valueOf(), token)
+    console.log((new Date()).valueOf(), token, this.$moment(1616654008).format('YYYY-MM-DD'))
   },
   methods: {
   }
