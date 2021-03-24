@@ -27,12 +27,22 @@ app.use((req, res, next) => {
 
 app.use(expressJwt({
   secret: 'userLogin', // 签名的密钥
-  algorithms: ['HS256'] // 设置算法
+  algorithms: ['HS256'],
+  credentialsRequired: true // 设置算法
 }).unless({
   path: ['/api/user/login']
 }))
 
 app.use((err, req, res, next) => {
+  console.log('token认证捕获', err)
+  switch (err && err.inner && err.inner.name) {
+    case 'JsonWebTokenError':
+      res.status(401).send({ code: -1, msg: '无效的token' })
+      break
+    case 'TokenExpiredError':
+      res.status(401).send({ code: -1, msg: 'token过期' })
+      break
+  }
   if (err && err.name === 'UnauthorizedError') {
     res.status(401).send({ code: -1, msg: '无权访问' })
   }

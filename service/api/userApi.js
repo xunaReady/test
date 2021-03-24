@@ -8,28 +8,6 @@ const jwt = require('jsonwebtoken')
 const conn = mysql.createConnection(models.mysql)
 conn.connect()
 
-router.all('/', (err, req, res, next) => {
-  console.log(err)
-  const token = req.headers.Authorization
-  console.log('输出token输出token输出token输出token输出token', token)
-  if (token) {
-    jwt.verify(token, 'userLogin', (err, decoded) => {
-      if (err) {
-        switch (err.name) {
-          case 'JsonWebTokenError':
-            res.status(403).send({ code: -1, msg: '无效的token' })
-            break
-          case 'TokenExpiredError':
-            res.status(403).send({ code: -1, msg: 'token过期' })
-            break
-        }
-      } else {
-        next()
-      }
-    })
-  }
-})
-
 const jsonWrite = function(res, ret) {
   if (typeof ret === 'undefined') {
     res.send({ code: -1, msg: 'error' })

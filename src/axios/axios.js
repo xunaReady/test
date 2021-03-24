@@ -29,9 +29,9 @@ service.interceptors.response.use(
     return dataAxios
   },
   error => {
-    console.log(error)
+    console.log(error, error.response)
     if (error && error.response && error.response.status === 401) {
-      MessageBox('无访问权限，请先登录账号', '提示', {
+      MessageBox(`${error.response.data.msg}，请重新登录账号`, '提示', {
         comfirmButtonText: '确定',
         type: 'warning'
       }).then(() => {
