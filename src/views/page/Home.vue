@@ -5,6 +5,8 @@
     <awesome-icon name='home fa-lg' style="color:blue;"></awesome-icon>66666
     <el-tree :data="treeDataList" props="{children: 'children',
           label: 'label'}"></el-tree>
+    <div>{{cloneTree1}}</div>
+    <div>{{cloneTree2}}</div>
     <el-dialog title="播放视频" :visible.sync="videoDialogVisible">
       <video-player-component></video-player-component>
     </el-dialog>
@@ -13,6 +15,7 @@
 <script>
 import { treeData } from '@/assets/js/commonOptions.js'
 import videoPlayerComponent from './videoPlayer'
+import { deepClone1, deepClone2 } from '@/assets/js/common.js'
 export default {
   name: 'Home',
   components: {
@@ -21,7 +24,9 @@ export default {
   data () {
     return {
       videoDialogVisible: false,
-      treeDataList: []
+      treeDataList: [],
+      cloneTree1: {},
+      cloneTree2: {}
     }
   },
   created () {
@@ -32,6 +37,9 @@ export default {
       return i.parentId === ''
     })
     console.log('datadata', this.treeDataList)
+    this.cloneTree1 = deepClone1(treeData)
+    this.cloneTree2 = deepClone2(treeData)
+    console.log(typeof this.cloneTree1, typeof 'pppp', typeof 1, typeof true, typeof null, typeof function aa () { console.log('ooo') }, typeof Proxy, 'pppppppp')
   }
 }
 </script>

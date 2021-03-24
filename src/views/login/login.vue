@@ -33,6 +33,8 @@
     </div>
 </template>
 <script>
+import $http from '@/axios/axios.js'
+import util from '@/libs/util.js'
 export default {
   name: 'login',
   data () {
@@ -52,11 +54,16 @@ export default {
     login () {
       this.$refs.login.validate(valid => {
         if (valid) {
-          this.$router.push('/home')
+          $http.post('/api/user/login', JSON.stringify(this.form)).then(async res => {
+            console.log(res)
+            if (res.code === 1) {
+              await util.cookies.set('token', res.result.token)
+              this.$router.push({ path: '/index' })
+            }
+          })
         }
       })
     }
-
   }
 }
 </script>

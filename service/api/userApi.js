@@ -3,31 +3,26 @@ var express = require('express')
 var router = express.Router()
 var mysql = require('mysql')
 var $sql = require('../db/sqlMap')
+const jwt = require('jsonwebtoken')
 
 var conn = mysql.createConnection(models.mysql)
 conn.connect()
 
 var jsonWrite = function (res, ret) {
   if (typeof ret === 'undefined') {
-    res.send('err')
+    res.send({ code: 0, msg: 'error' })
   } else {
     console.log(ret)
     res.send(ret)
   }
 }
 
-var dataStr = function (str) {
-  return new Date(str.slice(0, 7))
-}
-
 // 增加用户接口
 router.post('/addUser', (req, res) => {
   var sql = $sql.user.add
   var params = req.body
-  console.log(params)
-  console.log(params.birth)
-  conn.query(sql, [params.name, params.account, params.pass, params.checkPass,
-    params.email, params.phone, params.card, dataStr(params.birth), params.sex], function (err, result) {
+  console.log(params, '88888', params.name, params.password)
+  conn.query(sql, [params.name, params.password], function (err, result) {
     if (err) {
       console.log(err)
     }
@@ -41,23 +36,34 @@ router.post('/addUser', (req, res) => {
 router.post('/login', (req, res) => {
   var sqlName = $sql.user.select_name
   var params = req.body
-  console.log(params)
+  console.log('77777', params, params.name)
   if (params.name) {
-    sqlName += "where username = '" + params.name + "'"
+    sqlName += " where username = '" + params.name + "'"
   }
-  conn.query(sqlName, params.name, function (err, result) {
+  conn.query(sqlName, function (err, result) {
     if (err) {
       console.log(err)
     }
     if (result[0] === undefined) {
-      res.send('-1')
+      jsonWrite(res, { code: 0, msg: '用户名不存在' })
     } else {
       var resultArray = result[0]
-      console.log(resultArray.password)
+      console.log(result[0])
       if (resultArray.password === params.password) {
-        jsonWrite(res, result)
+        console.log(resultArray, resultArray.password)
+        const token = jwt.sign({
+          userid: resultArray.id,
+          username: resultArray.username
+        }, 'userLogin', {
+          expiresIn: '24h'
+        })
+        return jsonWrite(res, {
+          code: 1,
+          msg: 'success',
+          result: { ...result, token }
+        })
       } else {
-        res.send('0')
+        jsonWrite(res, { code: 0, msg: '用户密码错误' })
       }
     }
   })
@@ -69,16 +75,16 @@ router.get('/getUser', (req, res) => {
   var params = req.body
   console.log(params)
   if (params.name) {
-    sqlName += "where username = '" + params.name + "'"
+    sqlName += " where username = '" + params.name + "'"
   }
-  conn.query(sqlName, params.name, function (err, result) {
+  conn.query(sqlName, function (err, result) {
     if (err) {
       console.log(err)
     }
     if (result[0] === undefined) {
-      res.send('-1')
+      jsonWrite(res, { code: 0, msg: 'error' })
     } else {
-      jsonWrite(res, result)
+      jsonWrite(res, { code: 1, msg: 'success', result: result })
     }
   })
 })

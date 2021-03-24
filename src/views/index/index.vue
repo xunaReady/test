@@ -30,6 +30,9 @@
 <script>
 import { menuConfig } from '@/router/menuConfig'
 import MenuItemComponent from '@/components/menuItem.vue'
+import { Base64 } from 'js-base64'
+import util from '@/libs/util.js'
+
 export default {
   name: 'index',
   components: {
@@ -55,6 +58,10 @@ export default {
     }
   },
   methods: {
+  },
+  created () {
+    const token = Base64.decode(util.cookies.get('token'))
+    console.log((new Date()).valueOf(), token)
   }
 }
 </script>

@@ -8,6 +8,40 @@ const menuConfig = [
     }
   },
   {
+    path: '/sys',
+    name: 'Sys',
+    meta: {
+      title: '系统管理',
+      icon: ''
+    },
+    children: [
+      {
+        path: '/user',
+        name: 'User',
+        meta: {
+          title: '用户管理',
+          icon: ''
+        }
+      },
+      {
+        path: 'role',
+        name: 'Role',
+        meta: {
+          title: '角色管理',
+          icon: ''
+        }
+      },
+      {
+        path: '/resource',
+        name: 'Resource',
+        meta: {
+          title: '资源管理',
+          icon: ''
+        }
+      }
+    ]
+  },
+  {
     path: '/test',
     name: 'test',
     meta: {
@@ -52,6 +86,14 @@ const menuConfig = [
         name: 'Picture',
         meta: {
           title: 'viewPicture',
+          icon: ''
+        }
+      },
+      {
+        path: '/imtest',
+        name: 'imtest',
+        meta: {
+          title: 'imtest',
           icon: ''
         }
       }
