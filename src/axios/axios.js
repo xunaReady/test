@@ -2,6 +2,7 @@ import axios from 'axios'
 import util from '@/libs/util.js'
 import { MessageBox } from 'element-ui'
 import router from '../router'
+import store from '@/store/index'
 
 const service = axios.create({
   baseURL: 'http://localhost:3000',
@@ -35,8 +36,11 @@ service.interceptors.response.use(
         comfirmButtonText: '确定',
         type: 'warning'
       }).then(() => {
-        router.push({
-          path: '/login'
+        // 清除token
+        store.dispatch('dataAdmin/account/fedLogOut').then(() => {
+          router.push({
+            path: '/login'
+          })
         })
       })
     }

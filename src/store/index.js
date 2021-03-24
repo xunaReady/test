@@ -6,6 +6,6 @@ import dataAdmin from './modules'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
-  modules: dataAdmin,
-  strict: true
+  strict: true,
+  modules: { dataAdmin }
 })

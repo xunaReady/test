@@ -7,13 +7,13 @@ export default {
     info: {}
   },
   mutations: {
-    setInfo (state, info) {
+    setInfo(state, info) {
       state.info = info
     }
   },
   actions: {
     // 设置用户数据
-    set ({ commit, dispatch }, info) {
+    set({ commit, dispatch }, info) {
       return new Promise(resolve => {
         // store 赋值
         commit('setInfo', info)
@@ -30,7 +30,7 @@ export default {
     },
 
     // 从数据库取用户信息
-    load (commit, dispatch) {
+    load(commit, dispatch) {
       return new Promise(resolve => {
         const info = dispatch('db/get', {
           dbName: 'sys',
