@@ -1,12 +1,13 @@
 <template>
-    <video-player  class="video-player vjs-custom-skin"
-        ref="videoPlayer"
-        :options="playerOptions"
-        :playsinline="true"
-        customEventName="customstatechangedeventname"
-        @play="onPlayerPlay($event)"
-        @pause="onPlayerPause($event)">
-    </video-player>
+  <video-player
+    ref="videoPlayer"
+    class="video-player vjs-custom-skin"
+    :options="playerOptions"
+    :playsinline="true"
+    custom-event-name="customstatechangedeventname"
+    @play="onPlayerPlay($event)"
+    @pause="onPlayerPause($event)"
+  />
 </template>
 
 <script>
@@ -20,7 +21,7 @@ export default {
   components: {
     videoPlayer
   },
-  data () {
+  data() {
     return {
       playerOptions: {
         playbackRates: [0.7, 1.0, 1.5, 2.0], // 播放速度
@@ -48,15 +49,15 @@ export default {
     }
   },
   computed: {
-    player () {
+    player() {
       return this.$refs.videoPlayer.player
     }
   },
   methods: {
-    onPlayerPlay (player) {
+    onPlayerPlay(player) {
       console.log('player play!', player)
     },
-    onPlayerPause (player) {
+    onPlayerPause(player) {
       console.log('player pause!', player)
     }
   }
