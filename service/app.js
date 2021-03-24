@@ -3,14 +3,6 @@ const bodyParser = require('body-parser')
 const express = require('express')
 const app = express()
 const expressJwt = require('express-jwt')
-const jwt = require('jsonwebtoken')
-
-app.use(expressJwt({
-  secret: 'userLogin', // 签名的密钥
-  algorithms: ['HS256'] // 设置算法
-}).unless({
-  path: ['/api/user/login']
-}))
 
 app.use((req, res, next) => {
   // 由于express-jwt需要配合前台发送的cookie使用，所以要把Access-Control-Allow-Credentials设置为true
@@ -33,8 +25,14 @@ app.use((req, res, next) => {
   }
 })
 
+app.use(expressJwt({
+  secret: 'userLogin', // 签名的密钥
+  algorithms: ['HS256'] // 设置算法
+}).unless({
+  path: ['/api/user/login']
+}))
+
 app.use((err, req, res, next) => {
-  console.log(err)
   if (err && err.name === 'UnauthorizedError') {
     res.status(401).send({ code: -1, msg: '无权访问' })
   }

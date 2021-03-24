@@ -31,7 +31,7 @@ service.interceptors.response.use(
   error => {
     console.log(error)
     if (error && error.response && error.response.status === 401) {
-      MessageBox('请先登录账号', '提示', {
+      MessageBox('无访问权限，请先登录账号', '提示', {
         comfirmButtonText: '确定',
         type: 'warning'
       }).then(() => {
