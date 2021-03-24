@@ -25,10 +25,7 @@ const routes = [
   {
     path: '/login',
     name: 'Login',
-    component: Login,
-    meta: {
-      requiresAuth: true
-    },
+    component: Login
   },
   {
     path: '/index',

@@ -14,7 +14,7 @@ module.exports = {
       es6: true,
     },
     // 扩展风格
-    extends: ['plugin:vue/recommended', 'eslint:recommended'],
+    extends: ['plugin:vue/recommended', 'eslint:recommended', 'plugin:vue/essential'],
     // 规则的细节请到ESLint官方网站查看http://eslint.org/docs/rules/
     rules: {
       "vue/max-attributes-per-line": [2, {

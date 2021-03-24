@@ -4,7 +4,7 @@
     <div v-for="(item,index) in images" :key="index">
       <img :src="item.src">
     </div>
-  </viewer>
+  </viewer>        
 </template>
 <script>
 import Vue from 'vue'
