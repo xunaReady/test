@@ -18,19 +18,20 @@
         </el-button>
       </el-form-item>
     </el-form>
-    <div class="tr">
-      <el-button type="success" @click="addUser()">
-        新增
-      </el-button>
+    <div class="content-wrapper">
+      <div class="tr func-wrapper">
+        <el-button type="success" @click="addUser()">
+          新增
+        </el-button>
+      </div>
+      <el-table :data="userList" border>
+        <el-table-column prop="username" label="用户名" align="center"/>
+        <el-table-column prop="sex" label="性别" align="center"/>
+        <el-table-column prop="email" label="邮件" align="center"/>
+        <el-table-column prop="mobile" label="手机" align="center"/>
+        <el-table-column prop="remark" label="备注" align="center"/>
+      </el-table>
     </div>
-    <el-table :data="userList" border>
-      <el-table-column prop="username" label="用户名" />
-      <el-table-column prop="sex" label="性别" />
-      <el-table-column prop="email" label="邮件" />
-      <el-table-column prop="mobile" label="手机" />
-      <el-table-column prop="remark" label="备注" />
-    </el-table>
-
     <user-form ref="userForm" />
   </div>
 </template>
@@ -73,5 +74,16 @@ export default ({
 </script>
 <style lang="scss" scoped>
 #user{
+  .content-wrapper{
+    height: calc(100% - 104px);
+    .func-wrapper{
+      border-left: 1px solid #DCDFE6;
+      border-right: 1px solid #DCDFE6;
+      border-top: 1px solid #DCDFE6;
+      .el-button{
+        margin: 10px 0;
+      }
+    }
+  }
 }
 </style>

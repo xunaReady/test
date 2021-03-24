@@ -8,7 +8,7 @@
     text-align: left;
 }
 .title{
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     &::before {
       content: ' ';
       background-color: #214077;
@@ -16,7 +16,7 @@
       margin-right: 10px;
       padding: 6px 4px;
     }
-  }
+}
 .flex-row-center{
     display: flex;
     flex-direction: row;
