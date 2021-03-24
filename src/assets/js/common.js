@@ -113,3 +113,69 @@ export function numberFormat (number, decimals, decPoint, thousandsSep) {
 
 var num = numberFormat(1234567.089, 2, '.', ',')// 1,234,567.09
 console.log('numnumnum', num)
+
+// 方法一： 使用递归的方式实现数组、对象的深拷贝
+export function deepClone1 (obj) {
+  const objClone = Array.isArray(obj) ? [] : {}
+  if (obj && typeof obj === 'object') {
+    for (const key in obj) {
+      if (Object.prototype.hasOwnProperty.call(obj, key)) {
+        if (obj[key] && typeof obj[key] === 'object') {
+          objClone[key] = deepClone1(obj[key])
+        } else {
+          objClone[key] = obj[key]
+        }
+      }
+    }
+  }
+  return objClone
+}
+
+// 方法二： 通过json对象实现深拷贝
+// 通过js的内置对象JSON来进行数组对象的深拷贝,缺点是：无法实现对对象中方法的深拷贝
+export function deepClone2 (obj) {
+  const newObj = JSON.stringify(obj)
+  const objClone = JSON.parse(newObj)
+  return objClone
+}
+
+// 方法三：通过jquery的extend方法实现深拷贝
+export function deepClone3 (array) {
+  // const newArray = $.extend(true, [], array)
+  // return newArray
+}
+
+// 方法四：Object.assign()拷贝
+// 当对象中只有一级属性，没有二级属性的时候，此方法为深拷贝，但是对象中有对象的时候，此方法，在二级属性以后就是浅拷贝。
+
+// 方法五：lodash函数库实现深拷贝
+// lodash.cloneDeep()
+
+// vue实现防抖，使用场景：频繁触发、输入框搜索
+export function debounce (func, wait = 1000) {
+  let timeout
+  return function (event) {
+    clearTimeout(timeout)
+    timeout = setTimeout(() => {
+      func.call(this, event)
+    }, wait)
+  }
+}
+
+// vue实现节流，使用场景：频繁触发、onrize，onscroll滚动条
+export function fnThrottle (fn, delay, duration) {
+  let timer = null
+  let previous = new Date()
+  return function () {
+    const now = new Date()
+    clearTimeout(timer)
+    if (duration && now - previous > duration) {
+      fn()
+      previous = now
+    } else {
+      timer = setTimeout(() => {
+        fn()
+      }, delay)
+    }
+  }
+}

@@ -1,10 +1,10 @@
 <template>
-<!-- 图片预览、放大、缩小、翻转demo -->
-    <viewer>
-        <div v-for="(item,index) in images" :key="index">
-            <img :src="item.src"/>
-        </div>
-    </viewer>
+  <!-- 图片预览、放大、缩小、翻转demo -->
+  <viewer>
+    <div v-for="(item,index) in images" :key="index">
+      <img :src="item.src">
+    </div>
+  </viewer>
 </template>
 <script>
 import Vue from 'vue'
@@ -44,7 +44,7 @@ Viewer.setDefaults({
 Vue.use(Viewer)
 export default {
   name: 'Picture',
-  data () {
+  data() {
     return {
       images: [
         { src: require('../../assets/images/1.jpeg') },

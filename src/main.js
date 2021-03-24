@@ -6,7 +6,7 @@ import lodash from 'lodash'
 import moment from 'moment'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
-import '@/assets/css/commonCss.css'
+import '@/assets/css/commonCss.scss'
 
 // 阿里巴巴矢量图标库
 import '@/assets/icons'

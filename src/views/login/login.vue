@@ -1,62 +1,84 @@
 <template>
-    <div class="login-wrapper">
-        <div class="login-content">
-            <p class="login-title">登 录 管 理 系 统</p>
-            <div class="login-form">
-                <el-form :model="form" :rules="rules" ref="login">
-                    <el-form-item prop="name">
-                        <el-input v-model.trim="form.name">
-                            <template slot="prepend"
-                                class="prefix">用户名
-                            </template>
-                        </el-input>
-                    </el-form-item>
-                    <el-form-item prop="password" class="textWidth">
-                        <el-input v-model.trim="form.password"
-                            :type="passwordStatus">
-                            <template slot="prepend"
-                                class="prefix">密码
-                            </template>
-                            <i class="el-icon-view el-input__icon" slot="suffix"
-                                style="line-height:44px;"
-                                v-if="form.password"
-                                @click="passwordStatus = 'text'"
-                                @mouseleave="passwordStatus = 'password'"></i>
-                        </el-input>
-                    </el-form-item>
-                    <div class="tc">
-                        <el-button @click="login">登 录</el-button>
-                    </div>
-                </el-form>
-            </div>
-        </div>
+  <div class="login-wrapper">
+    <div class="login-content">
+      <p class="login-title">
+        登 录 管 理 系 统
+      </p>
+      <div class="login-form">
+        <el-form ref="login" :model="form" :rules="rules">
+          <el-form-item prop="username">
+            <el-input v-model.trim="form.username">
+              <template
+                slot="prepend"
+                class="prefix"
+              >
+                用户名
+              </template>
+            </el-input>
+          </el-form-item>
+          <el-form-item prop="password" class="textWidth">
+            <el-input
+              v-model.trim="form.password"
+              :type="passwordStatus"
+            >
+              <template
+                slot="prepend"
+                class="prefix"
+              >
+                密码
+              </template>
+              <i
+                v-if="form.password"
+                slot="suffix"
+                class="el-icon-view el-input__icon"
+                style="line-height:44px;"
+                @click="passwordStatus = 'text'"
+                @mouseleave="passwordStatus = 'password'"
+              />
+            </el-input>
+          </el-form-item>
+          <div class="tc">
+            <el-button @click="login">
+              登 录
+            </el-button>
+          </div>
+        </el-form>
+      </div>
     </div>
+  </div>
 </template>
 <script>
+import { loginApi } from '@/assets/api/user.js'
+import util from '@/libs/util.js'
 export default {
-  name: 'login',
-  data () {
+  name: 'Login',
+  data() {
     return {
       passwordStatus: 'password',
       form: {
-        name: '',
+        username: '',
         password: ''
       },
       rules: {
-        name: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
+        username: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
         password: [{ required: true, message: '请输入密码', trigger: 'blur' }]
       }
     }
   },
   methods: {
-    login () {
+    login() {
       this.$refs.login.validate(valid => {
         if (valid) {
-          this.$router.push('/home')
+          loginApi(this.form).then(async res => {
+            console.log(res)
+            if (res.code === 1) {
+              await util.cookies.set('token', res.result.token)
+              this.$router.push({ path: '/index' })
+            }
+          })
         }
       })
     }
-
   }
 }
 </script>

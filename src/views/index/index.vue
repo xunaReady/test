@@ -2,26 +2,28 @@
   <el-container id="app">
     <el-aside id="nav">
       <div class="logo flex-row-center">
-        <img :src="require('@/assets/images/1.jpg')"/>
+        <img :src="require('@/assets/images/1.jpg')">
       </div>
-      <el-menu ref="menuSign"
+      <el-menu
+        ref="menuSign"
         class="main-menu-class"
-        background-color='#214077'
+        background-color="#214077"
         active-text-color="#ffffff"
         text-color="#999999"
         :default-active="activeMenu"
         :unique-opened="false"
-        router>
-        <menu-item-component :menuOptions="menuOptions"></menu-item-component>
+        router
+      >
+        <menu-item-component :menu-options="menuOptions" />
       </el-menu>
     </el-aside>
     <el-container>
       <el-header class="main-header">
-       <div>练习demo</div>
-     </el-header>
+        <div>练习demo</div>
+      </el-header>
       <el-main style="height:calc(100% - 60px);padding:0;overflow:hidden;">
         <div style="height:100%;overflow-y:auto;" class="main-wrapper">
-          <router-view style="height:100%;"/>
+          <router-view style="height: calc(100% - 40px);padding:20px;" />
         </div>
       </el-main>
     </el-container>
@@ -30,14 +32,23 @@
 <script>
 import { menuConfig } from '@/router/menuConfig'
 import MenuItemComponent from '@/components/menuItem.vue'
+import { Base64 } from 'js-base64'
+import util from '@/libs/util.js'
+
 export default {
-  name: 'index',
+  name: 'Index',
   components: {
     MenuItemComponent
   },
+  data() {
+    return {
+      menuOptions: menuConfig,
+      activeMenu: ''
+    }
+  },
   watch: {
     '$route.matched': {
-      handler (val) {
+      handler(val) {
         this.activeMenu = val[val.length - 1].path
         this.$nextTick(() => {
           if (this.menuOptions.length > 0 && this.$refs.menuSign) {
@@ -48,11 +59,9 @@ export default {
       immediate: true
     }
   },
-  data () {
-    return {
-      menuOptions: menuConfig,
-      activeMenu: ''
-    }
+  created() {
+    const token = Base64.decode(util.cookies.get('token'))
+    console.log((new Date()).valueOf(), token, this.$moment(1616654008).format('YYYY-MM-DD'))
   },
   methods: {
   }

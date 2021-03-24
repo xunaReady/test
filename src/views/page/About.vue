@@ -1,17 +1,19 @@
 <template>
   <div class="about">
-    <wxlogin :appid="appid" :scope="scope" :redirect_uri="redirect_uri"></wxlogin>
-    <div v-for="(item,index) in data" :key="index">{{item.id}}</div>
+    <wxlogin :appid="appid" :scope="scope" :redirect_uri="redirect_uri" />
+    <div v-for="(item,index) in data" :key="index">
+      {{ item.id }}
+    </div>
   </div>
 </template>
 <script>
 import wxlogin from 'vue-wxlogin'
 export default {
-  name: 'index',
+  name: 'Index',
   components: {
     wxlogin
   },
-  data () {
+  data() {
     return {
       appid: 'wx4c6b4defdb847326',
       scope: 'snsapi_login',
@@ -19,10 +21,10 @@ export default {
       data: []
     }
   },
-  methods: {
-  },
-  created () {
+  created() {
     console.log(window.location.protocol + window.location.host + '/#/')
+  },
+  methods: {
   }
 
 }

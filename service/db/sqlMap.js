@@ -1,8 +1,9 @@
 var sqlMap = {
   user: {
-    add: 'insert into user(username,account,password,repeatPass,email,phone,card,birth,sex) values (?,?,?,?,?,?,?,?,?)',
-    select_name: 'select * from user where username = ?',
-    update_user: 'update user set'
+    add: 'insert into eauser(username,password) values (?,?)',
+    select_name: 'select * from eauser',
+    update_user: 'update eauser set',
+    delete_name: 'delete from eauser'
   }
 }
 
